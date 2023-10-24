@@ -32,13 +32,15 @@ public class MainMenuManager : MonoBehaviour
         }
     }
 
-    public void OptionsButton() {
+    public void ToggleOptionsMenu() {
         optionsPanelOpen = !optionsPanelOpen;
         optionsPanel.gameObject.SetActive(optionsPanelOpen);
+        SoundManager.instance.PlaySFX(0);
     }
 
     public void QuitButton() {
         SoundManager.instance.SaveSoundSettings();
+        SoundManager.instance.PlaySFX(0);
         Application.Quit();
     }
 }
