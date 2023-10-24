@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
@@ -9,7 +10,7 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] GameObject optionsPanel;
 
     bool optionsPanelOpen = false;
-    bool saveDataExists = false;
+    bool saveDataExists;
 
     private void Awake() {
         Application.targetFrameRate = 60;
@@ -18,6 +19,7 @@ public class MainMenuManager : MonoBehaviour
 
     // Start is called before the first frame update
     void Start() {
+        saveDataExists = PlayerPrefs.GetInt("ContinueAvailable") == 1;
         if (!saveDataExists) {
             continueButton.GetComponent<CanvasRenderer>().SetColor(new Color(0, 0, 0, 0.5f));
             continueButton.interactable = false;
@@ -42,5 +44,14 @@ public class MainMenuManager : MonoBehaviour
         SoundManager.instance.SaveSoundSettings();
         SoundManager.instance.PlaySFX(0);
         Application.Quit();
+    }
+
+    public void NewGameButton() {
+        PlayerPrefs.SetInt("ContinueAvailable", 0);
+        SceneManager.LoadScene(1);
+    }
+
+    public void ContinueButton() {
+        SceneManager.LoadScene(1);
     }
 }

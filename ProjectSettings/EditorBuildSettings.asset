@@ -4,5 +4,14 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/EdenMainMenu.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/LoadingScene.unity
+    guid: ba75f9172d53f514396a1eb996bb4ed7
+  - enabled: 1
+    path: Assets/Scenes/Level01.unity
+    guid: c2a23be01175306438c0ed4131552e10
   m_configObjects: {}

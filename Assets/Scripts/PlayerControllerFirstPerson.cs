@@ -5,6 +5,9 @@ using UnityEngine.EventSystems;
 
 public class PlayerControllerFirstPerson : MonoBehaviour
 {
+
+    public static PlayerControllerFirstPerson instance;
+
     // Using Unity CharacterController
     CharacterController characterController;
 
@@ -25,6 +28,10 @@ public class PlayerControllerFirstPerson : MonoBehaviour
     // before the first frame update
     void Start()
     {
+        if (instance == null) {
+            instance = this;
+        }
+
        characterController = GetComponent<CharacterController>();
         LockCursor(true);
     }
@@ -75,9 +82,11 @@ public class PlayerControllerFirstPerson : MonoBehaviour
         if (isLocked) {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            canMove = true;
         } else {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+            canMove = false;
         }
     }
 }
