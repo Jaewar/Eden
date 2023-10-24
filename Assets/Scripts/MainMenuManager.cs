@@ -7,7 +7,6 @@ public class MainMenuManager : MonoBehaviour
 {
     [SerializeField] Button continueButton;
     [SerializeField] GameObject optionsPanel;
-    [SerializeField] Slider audioSlider;
 
     bool optionsPanelOpen = false;
     bool saveDataExists = false;
@@ -28,7 +27,9 @@ public class MainMenuManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.GetComponent<AudioSource>().volume = audioSlider.value;
+        if (optionsPanel.gameObject.activeInHierarchy) {
+            SoundManager.instance.setValueTexts();
+        }
     }
 
     public void OptionsButton() {
@@ -37,6 +38,7 @@ public class MainMenuManager : MonoBehaviour
     }
 
     public void QuitButton() {
+        SoundManager.instance.SaveSoundSettings();
         Application.Quit();
     }
 }
