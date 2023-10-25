@@ -8,9 +8,12 @@ public class MainMenuManager : MonoBehaviour
 {
     [SerializeField] Button continueButton;
     [SerializeField] GameObject optionsPanel;
+    [SerializeField] GameObject loadScenePanel;
 
     bool optionsPanelOpen = false;
     bool saveDataExists;
+
+    [SerializeField] Button[] loadSceneButtons;
 
     private void Awake() {
         Application.targetFrameRate = 60;
@@ -23,6 +26,12 @@ public class MainMenuManager : MonoBehaviour
         if (!saveDataExists) {
             continueButton.GetComponent<CanvasRenderer>().SetColor(new Color(0, 0, 0, 0.5f));
             continueButton.interactable = false;
+        }
+
+        int numberOfAvailableSaves = PlayerPrefs.GetInt("ScenesSaved");
+
+        for (int i = 0; i < numberOfAvailableSaves - 1; i++) {
+            loadSceneButtons[i].gameObject.SetActive(true);
         }
     }
 
@@ -52,6 +61,14 @@ public class MainMenuManager : MonoBehaviour
     }
 
     public void ContinueButton() {
-        SceneManager.LoadScene(1);
+        loadScenePanel.SetActive(true);
+    }
+
+    public void LoadSpecifiedScene(int index) {
+        SceneManager.LoadScene(index);
+    }
+
+    public void CloseContinueOptions() {
+        loadScenePanel.SetActive(false);
     }
 }

@@ -24,13 +24,14 @@ public class PlayerControllerFirstPerson : MonoBehaviour
 
     // Camera OBJ
     [SerializeField] Camera playerCam;
-    [SerializeField] PlayableDirector director;
+    
 
 
 
     // before the first frame update
     void Start()
     {
+
         if (instance == null) {
             instance = this;
         }
@@ -70,14 +71,16 @@ public class PlayerControllerFirstPerson : MonoBehaviour
         characterController.Move(moveDir * Time.deltaTime);
 
         // Player and Camera rotation
-        if (canMove && director.state != PlayState.Playing) {
-            // sensitivity
-            xRotation += -Input.GetAxis("Mouse Y") * mouseSens;
-            // vertical limits
-            xRotation = Mathf.Clamp(xRotation, -mouseVerticalLimit , mouseVerticalLimit);
+        if (canMove) {
+            if (GameManager.instance.getDirector() == null || GameManager.instance.getDirector().state != PlayState.Playing) {
+                // sensitivity
+                xRotation += -Input.GetAxis("Mouse Y") * mouseSens;
+                // vertical limits
+                xRotation = Mathf.Clamp(xRotation, -mouseVerticalLimit, mouseVerticalLimit);
 
-            playerCam.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
-            transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * mouseSens, 0);
+                playerCam.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
+                transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * mouseSens, 0);
+            }
         }
     }
 

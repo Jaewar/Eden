@@ -3,24 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
 
+    public static GameManager instance;
+
     [SerializeField] GameObject optionsPanel;
-    [SerializeField] PlayableDirector director;
+    public PlayableDirector director;
+
+    public int curSceneIndex;
+    public int nextSceneIndex;
 
     bool optionsPanelOpen = false;
-
 
     // Start is called before the first frame update
     void Start()
     {
-        if (PlayerPrefs.GetInt("ContinueAvailable") == 1) {
-            SaveLoad.instance.LoadGame();
-        } else {
+        instance = this;
+
+        if (PlayerPrefs.GetInt("ContinueAvailable") != 1) {
             director.Play();
         }
+
+        curSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        nextSceneIndex = curSceneIndex + 1;
+
     }
 
     // Update is called once per frame
@@ -54,5 +63,9 @@ public class GameManager : MonoBehaviour
     public void QuitGame() {
         SaveLoad.instance.SaveGame();
         Application.Quit();
+    }
+
+    public PlayableDirector getDirector() {
+        return director;
     }
 }

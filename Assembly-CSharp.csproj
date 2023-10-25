@@ -61,6 +61,7 @@
     <Compile Include="Assets\LowPolyWater_Pack\Scripts\LowPolyWater.cs" />
     <Compile Include="Assets\Polytope Studio\Lowpoly_Demos\Environment_Free\Helpers\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\MainMenuManager.cs" />
+    <Compile Include="Assets\TeleportScript.cs" />
     <Compile Include="Assets\Polytope Studio\Lowpoly_Demos\Environment_Free\Helpers\MouseLook.cs" />
     <Compile Include="Assets\Scripts\LoadSceneManager.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
