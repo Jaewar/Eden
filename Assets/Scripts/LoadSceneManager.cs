@@ -1,13 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LoadSceneManager : MonoBehaviour
 {
+    System.Random rnd = new System.Random();
 
     IEnumerator WaitAndLoadNewScene() {
-        yield return new WaitForSeconds(6);
+        int num = rnd.Next(6);
+        yield return new WaitForSeconds(num);
         SceneManager.LoadScene(2);
     }
 

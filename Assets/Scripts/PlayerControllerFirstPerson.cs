@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Playables;
+using UnityEngine.Timeline;
 
 public class PlayerControllerFirstPerson : MonoBehaviour
 {
@@ -22,6 +24,7 @@ public class PlayerControllerFirstPerson : MonoBehaviour
 
     // Camera OBJ
     [SerializeField] Camera playerCam;
+    [SerializeField] PlayableDirector director;
 
 
 
@@ -67,7 +70,7 @@ public class PlayerControllerFirstPerson : MonoBehaviour
         characterController.Move(moveDir * Time.deltaTime);
 
         // Player and Camera rotation
-        if (canMove) {
+        if (canMove && director.state != PlayState.Playing) {
             // sensitivity
             xRotation += -Input.GetAxis("Mouse Y") * mouseSens;
             // vertical limits

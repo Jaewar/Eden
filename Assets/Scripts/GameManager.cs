@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
 
     [SerializeField] GameObject optionsPanel;
+    [SerializeField] PlayableDirector director;
 
     bool optionsPanelOpen = false;
 
@@ -16,22 +18,25 @@ public class GameManager : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("ContinueAvailable") == 1) {
             SaveLoad.instance.LoadGame();
+        } else {
+            director.Play();
         }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (director.state != PlayState.Playing) {
+            if (Input.GetKeyDown(KeyCode.Escape)) {
+                ToggleOptionsMenu();
+            }
 
-        if (Input.GetKeyDown(KeyCode.Escape)) {
-            ToggleOptionsMenu();
-        }
-
-        if (optionsPanel.gameObject.activeInHierarchy) {
-            PlayerControllerFirstPerson.instance.LockCursor(false);
-            SoundManager.instance.setValueTexts();
-        } else {
-            PlayerControllerFirstPerson.instance.LockCursor(true);
+            if (optionsPanel.gameObject.activeInHierarchy) {
+                PlayerControllerFirstPerson.instance.LockCursor(false);
+                SoundManager.instance.setValueTexts();
+            } else {
+                PlayerControllerFirstPerson.instance.LockCursor(true);
+            }
         }
     }
 

@@ -23,11 +23,11 @@ public class SaveLoad : MonoBehaviour
     }
 
     public void SaveGame() {
+        PlayerPrefs.SetInt("ContinueAvailable", 1);
         PlayerPrefs.SetFloat("_PlayerX", PlayerControllerFirstPerson.instance.transform.position.x);
         PlayerPrefs.SetFloat("_PlayerY", PlayerControllerFirstPerson.instance.transform.position.y);
         PlayerPrefs.SetFloat("_PlayerZ", PlayerControllerFirstPerson.instance.transform.position.z);
         PlayerPrefs.SetFloat("_PlayerRotY", PlayerControllerFirstPerson.instance.transform.rotation.y);
-        PlayerPrefs.SetInt("ContinueAvailable", 1);
     }
 
     public void LoadGame() {
