@@ -15,8 +15,6 @@ public class SaveLoad : MonoBehaviour
         }
     }
 
-    private Vector3 playerPosition;
-
     public void SaveGame() {
         PlayerPrefs.SetInt("ContinueAvailable", 1);
         PlayerPrefs.SetInt("ScenesSaved", GameManager.instance.curSceneIndex);

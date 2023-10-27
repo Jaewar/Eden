@@ -58,4 +58,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   optionsPanel: {fileID: 0}
+  crossHair: {fileID: 0}
+  OpenText: {fileID: 0}
+  CloseText: {fileID: 0}
+  pickupText: {fileID: 0}
+  curApples: {fileID: 0}
   director: {fileID: 0}
+  curSceneIndex: 0
+  nextSceneIndex: 0
+  applesCollected: 0
