@@ -24,8 +24,8 @@ public class PlayerControllerFirstPerson : MonoBehaviour
 
     // Camera OBJ
     [SerializeField] Camera playerCam;
-    
 
+    public Inventory inventory;
 
 
     // before the first frame update
@@ -96,4 +96,10 @@ public class PlayerControllerFirstPerson : MonoBehaviour
         }
     }
 
+
+    private void OnTriggerEnter(Collider other) {
+        if (other.tag == "Item") {
+            inventory.AddItem(other.GetComponent<Item>());
+        }
+    }
 }

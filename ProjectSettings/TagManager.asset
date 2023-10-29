@@ -9,6 +9,7 @@ TagManager:
   - Apple
   - bullet
   - Kitchen
+  - Item
   layers:
   - Default
   - TransparentFX
