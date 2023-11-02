@@ -60,6 +60,7 @@
     <Compile Include="Assets\Scripts\Weapon\GunController.cs" />
     <Compile Include="Assets\Scripts\Managers\SFXManager.cs" />
     <Compile Include="Assets\LowPolyWater_Pack\Scripts\LowPolyWater.cs" />
+    <Compile Include="Assets\Scripts\Inventory\Slot.cs" />
     <Compile Include="Assets\Polytope Studio\Lowpoly_Demos\Environment_Free\Helpers\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\Managers\MainMenuManager.cs" />
     <Compile Include="Assets\Scripts\TeleportScript.cs" />
@@ -70,10 +71,11 @@
     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerControllerFirstPerson.cs" />
     <Compile Include="Assets\Scripts\SaveLoad.cs" />
+    <Compile Include="Assets\Scripts\Inventory\Item.cs" />
     <Compile Include="Assets\Scripts\Player\RayCastDetector.cs" />
     <Compile Include="Assets\Scripts\Inventory\Inventory.cs" />
-    <Compile Include="Assets\Scripts\Inventory\Item.cs" />
-    <Compile Include="Assets\Scripts\Inventory\Slot.cs" />
+    <Compile Include="Assets\Scripts\Enemies\EnemyManager.cs" />
+    <Compile Include="Assets\Scripts\Enemies\Enemy.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum ItemType {
-    HEALTH, AMMO
+    HEALTH, AMMO, APPLE
 };
 
 public class Item : MonoBehaviour
@@ -23,6 +23,9 @@ public class Item : MonoBehaviour
                 break;
             case ItemType.HEALTH:
                 Debug.Log("health");
+                break;
+            case ItemType.APPLE:
+                Debug.Log("APPLE");
                 break;
             default:
                 Debug.Log("Unknown");

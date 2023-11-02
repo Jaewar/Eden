@@ -89,11 +89,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7db8339cc2d5e124c8e7e9c2d19c3321, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slots: 30
-  rows: 5
+  slots: 3
+  rows: 3
   slotPaddingLeft: 10
   slotPaddingTop: 10
   slotSize: 50
   slotPrefab: {fileID: 505971364151609207, guid: 4066a91f2a9b0f14dba0a84aa05e2c2b, type: 3}
-  iconPrefab: {fileID: 1022434475784239869, guid: b93de0929c6052b41980a938b329d047, type: 3}
+  iconPrefab: {fileID: 505971364151609207, guid: a44998298daa2304f8aecdef35cc76c7, type: 3}
   canvas: {fileID: 0}
+  eventSystem: {fileID: 0}
+  selectStackSize: {fileID: 0}
+  stackText: {fileID: 0}

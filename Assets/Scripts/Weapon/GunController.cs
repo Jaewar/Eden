@@ -29,7 +29,7 @@ public class GunController : MonoBehaviour
     // Update is called once per frame
     void Update() {
 
-        if (GameManager.instance.OptionsPanelActive() == false) {
+        if (GameManager.instance.OptionsPanelActive() == false && GameManager.instance.InventoryPanelActive() == false) {
             ammoPanel.SetActive(true);
             if (Input.GetKeyDown(KeyCode.R)) {
                 GetComponent<Animator>().SetTrigger("reloading");

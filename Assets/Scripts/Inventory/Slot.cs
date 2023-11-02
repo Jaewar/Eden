@@ -32,10 +32,13 @@ public class Slot : MonoBehaviour, IPointerClickHandler
         set { items = value; }
     }
 
+    void Awake() {
+        items = new Stack<Item>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        items = new Stack<Item>();
 
         RectTransform slotRect = GetComponent<RectTransform>();
         RectTransform textRect = stackText.GetComponent<RectTransform>();
@@ -105,9 +108,49 @@ public class Slot : MonoBehaviour, IPointerClickHandler
         stackText.text = string.Empty;
     }
 
+    public Stack<Item> RemoveItems(int amount) {
+        Stack<Item> tmp = new Stack<Item>();
+
+        for (int i = 0; i < amount; i++) {
+            tmp.Push(items.Pop());
+        }
+
+        stackText.text = items.Count > 1 ? items.Count.ToString() : string.Empty;
+
+        return tmp;
+    }
+
+    public Item RemoveItem() {
+        Item tmp;
+        tmp = items.Pop();
+
+        stackText.text = items.Count > 1 ? items.Count.ToString() : string.Empty;
+
+        return tmp;
+    }
+
     public void OnPointerClick(PointerEventData eventData) {
-        if (eventData.button == PointerEventData.InputButton.Right) {
+        //If the right mousebutton was clicked, and we aren't moving an item and the inventory is visible
+        if (eventData.button == PointerEventData.InputButton.Right && !GameObject.Find("Hover") && GameManager.instance.InventoryPanelActive() == true) {
+            //Uses an item on the slot
             UseItem();
+        }
+        //Checks if we need to show the split stack dialog , this is only done if we shiftclick a slot and we aren't moving an item
+        else if (eventData.button == PointerEventData.InputButton.Left && Input.GetKey(KeyCode.LeftShift) && !IsEmpty && !GameObject.Find("Hover")) {
+            //The dialogs spawnposition
+            Vector2 position;
+
+            //Translates the mouse position to onscreen coords so that we can spawn the dialog at the correct position
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(Inventory.Instance.canvas.transform as RectTransform, Input.mousePosition, Inventory.Instance.canvas.worldCamera, out position);
+
+            //Shows the dialog
+            Inventory.Instance.selectStackSize.SetActive(true);
+
+            //Sets the position
+            Inventory.Instance.selectStackSize.transform.position = Inventory.Instance.canvas.transform.TransformPoint(position);
+
+            //Tell the inventory the item count on the selected slot
+            Inventory.Instance.SetStackInfo(items.Count);
         }
     }
 

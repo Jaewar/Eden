@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 505971364151609205}
   - component: {fileID: 3411142380136082753}
   m_Layer: 5
-  m_Name: iconPrefab
+  m_Name: MovingSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

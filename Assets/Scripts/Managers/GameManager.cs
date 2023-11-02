@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance;
 
-    [SerializeField] GameObject optionsPanel, crossHair;
+    [SerializeField] GameObject optionsPanel, crossHair, inventoryPanel;
     [SerializeField] TextMeshProUGUI OpenText, CloseText, pickupText, curApples, InteractText;
     public PlayableDirector director;
 
@@ -21,8 +21,9 @@ public class GameManager : MonoBehaviour
     public int applesRequired = 5;
 
     bool optionsPanelOpen = false;
+    bool inventoryPanelOpen = false;
     bool doorSelected;
-    bool appleSelected;
+    bool itemSelected;
     bool kitchenSelected;
 
     // Start is called before the first frame update
@@ -46,13 +47,21 @@ public class GameManager : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
+
+        if (inventoryPanelOpen == false) {
+            inventoryPanel.SetActive(false);
+        }
+
         curApples.text = "Collected: " + applesCollected.ToString();
         if (director.state != PlayState.Playing) {
-            if (Input.GetKeyDown(KeyCode.Escape)) {
+            if (Input.GetKeyDown(KeyCode.Escape) && inventoryPanelOpen == false) {
                 ToggleOptionsMenu();
             }
+            if (Input.GetKeyDown(KeyCode.Tab) && optionsPanelOpen == false) {
+                ToggleInventory();
+            }
 
-            if (optionsPanel.gameObject.activeInHierarchy) {
+            if (optionsPanel.gameObject.activeInHierarchy || inventoryPanel.gameObject.activeInHierarchy) {
                 PlayerControllerFirstPerson.instance.LockCursor(false);
                 SoundManager.instance.setValueTexts();
             } else {
@@ -77,14 +86,16 @@ public class GameManager : MonoBehaviour
                             hit.collider.gameObject.GetComponent<Animator>().SetBool("OpenDoor", !hit.collider.gameObject.GetComponent<Animator>().GetBool("OpenDoor"));
                         }
                     }
-                    if (hit.collider.tag == "Apple") {
-                        appleSelected = true;
+                    if (hit.collider.tag == "Item") {
+                        itemSelected = true;
                         TogglePickupText(true);
                     }
-                    if (appleSelected) {
+                    if (itemSelected) {
                         if (Input.GetKeyDown(KeyCode.E)) {
-                            hit.collider.gameObject.SetActive(false);
-                            applesCollected++;
+                            if (hit.collider.gameObject.tag == "Item") {
+                                hit.collider.gameObject.SetActive(false);
+                                Inventory.Instance.AddItem(hit.collider.gameObject.GetComponent<Item>());
+                            }
                         }
                     }
                     if (hit.collider.tag == "Kitchen") {
@@ -102,14 +113,14 @@ public class GameManager : MonoBehaviour
                     }
                 } else {
                     doorSelected = false;
-                    appleSelected = false;
-                    //kitchenSelected = false;
+                    itemSelected = false;
+                    kitchenSelected = false;
                 }
                 if (!doorSelected) {
                     ToggleOpenText(false);
                     ToggleCloseText(false);
                 }
-                if (!appleSelected) {
+                if (!itemSelected) {
                     TogglePickupText(false);
                 }
                 if (!kitchenSelected) {
@@ -141,6 +152,15 @@ public class GameManager : MonoBehaviour
         SoundManager.instance.PlaySFX(0);
     }
 
+    public void ToggleInventory() {
+        inventoryPanelOpen = !inventoryPanelOpen;
+        if (inventoryPanelOpen == false) {
+            Inventory.Instance.PutItemBack();
+        }
+        inventoryPanel.gameObject.SetActive(inventoryPanelOpen);
+        SoundManager.instance.PlaySFX(0);
+    }
+
     public void MainMenuButton() {
         SaveLoad.instance.SaveGame();
         SceneManager.LoadScene(0);
@@ -161,5 +181,9 @@ public class GameManager : MonoBehaviour
 
     public bool OptionsPanelActive() {
         return optionsPanel.gameObject.activeInHierarchy;
+    }
+
+    public bool InventoryPanelActive() {
+        return inventoryPanel.gameObject.activeInHierarchy;
     }
 }
